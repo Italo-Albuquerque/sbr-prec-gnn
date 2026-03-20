@@ -1,0 +1,2519 @@
+ ********************************************************************************
+ *                                                                              *
+ *                                IMEX  2018.10                                 *
+ *                   Adaptive - Implicit Black Oil Simulator                    *
+ *                 Secure Source General Release for Linux x64                  *
+ *                            2018-Dec-12   11:42:19                            *
+ *                                                                              *
+ *                          (c) Copyright 1977 - 2018                           *
+ *                Computer Modelling Group Ltd., Calgary, Canada                *
+ *                             All Rights Reserved                              *
+ *                                                                              *
+ ********************************************************************************
+
+
+ Command-line Arguments:  -f /home/michael/gitrepos/sbr-iluctp/data/mxspe001.dat
+                          -wd /home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR
+                          -sbr /home/michael/gitrepos/sbr-iluctp//configs/configSBR-CPR.json
+                          -inaws_off
+                          -sbrpar 64
+                          -cputime
+
+  Date and Time of Start of Run:  Oct 30, 2025  11:36:27
+
+
+*** Input/Output files specification :
+    Opened data file        on unit 10, filename is '/home/michael/gitrepos/sbr-iluctp/data/mxspe001.dat'
+    Opened Scratch file     on unit 11
+ 
+ 
+    Opened output file      on unit 12, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.out'
+    Opened SR3-OUT          on unit 13, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.sr3'
+    Opened INDEX-OUT        on unit 14, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.irf'
+    Opened MAIN-RESULTS-OUT on unit 15, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.mrf'
+    Opened Restart-SR3      on unit 16, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.rstr.sr3'
+    Opened Restart-NDX      on unit 17, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.rstr.irf'
+    Opened Restart-BIN      on unit 18, filename is '/home/michael/gitrepos/sbr-iluctp//outputs-2025-10-30/mxspe001/configSBR-CPR/mxspe001.rstr.mrf'
+    Opened GRID scratchfile on unit 19
+
+ ===================== WARNING (from subroutine: INCOMP) ======================
+  P/Z Output is disabled as Temperatures were not defined for all PVT Regions
+  Please review the *TRES Keyword
+  Line: 113   File Name: /home/michael/gitrepos/sbr-iluctp/data/mxspe001.dat
+ ==============================================================================
+
+
+ ===================== WARNING (from subroutine: PVTCHK) ======================
+  PVT Table 1 Entry (i=) 9 fails compressibility check:
+  Bg(i+1)*dRs/Dp(i) must be > dBo/Dp(i).
+ ==============================================================================
+
+
+ ===================== WARNING (from subroutine: PVTCHK) ======================
+  IMEX has detected negative total compressibility.
+  Please correct above entries to avoid poor performance.
+ ==============================================================================
+
+
+ ===================== SUMMARY (from subroutine: INDATA) ======================
+  Reading of initial data is complete.
+  Simulation will stop if there were error messages.
+     3 Warning messages.    0 Error messages.
+ ==============================================================================
+
+
+ ===================== WARNING (from subroutine: WMCHCK) ======================
+  WELL Injector is an unweighted injector with XFLOW-MODEL FULLY-MIXED.
+  The current formulation does not allow this. Resetting to XFLOW-MODEL ZERO-FLOW.
+ ==============================================================================
+
+SolverBR's JSON:
+{
+    "name": "ScalingAIMSolver",
+    "Min Pivot": 1e-16,
+    "Use Cramer": false,
+    "inner-solver": {
+        "name": "AIMSolver",
+        "inner-solver": {
+            "name": "KSPGMRES",
+            "rtol": 0.0005,
+            "maxit": 50,
+            "restart": 30,
+            "flexible": true,
+            "nonzero": false,
+            "pc": {
+                "name": "Composite",
+                "type": "Multiplicative",
+                "pc1": {
+                    "name": "GenericCPR",
+                    "matrixPrecision": "double",
+                    "pressureSolver": {
+                        "name": "KSPGMRES",
+                        "rtol": 0.3,
+                        "maxit": 990,
+                        "restart": 30,
+                        "nonzero": false,
+                        "pc": {
+                            "name": "GenericDD",
+                            "core-alg": {
+                                "name": "ILUCore",
+                                "Fill Level": 1,
+                                "setupPrecision": "double",
+                                "precision": "double",
+                                "Min Pivot": 1e-16
+                            },
+                            "DD-alg": {
+                                "name": "BJacobiILUCore"
+                            }
+                        }
+                    }
+                },
+                "pc2": {
+                    "name": "GenericDD",
+                    "core-alg": {
+                        "name": "VariableBlockedILUCore",
+                        "Fill Level": 1,
+                        "setupPrecision": "double",
+                        "precision": "double",
+                        "Min Pivot": 1e-16
+                    },
+                    "DD-alg": {
+                        "name": "BJacobiVariableBlockedILUCore"
+                    }
+                }
+            }
+        }
+    }
+}
+
+   INFO: {"systemID": 1, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 1, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 1, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 1, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 1, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 1, "level": 1, "outerNiter": 2, "niter": 2}
+
+                                    I M E X   T I M E   S T E P   S U M M A R Y
+                                       First SPE Comparative Solution Project
+                                   (See Odeh, A.S., J.P.T., 33, pp.13-25, 1981.)
+ ==================================================================================================================
+    Time Step           Time                  Total Production             Total Injection  Total Max. Max. Change
+ ---------------- ---------------- -------------------------------------- -----------------  PV   Mat. ------------
+                C                    Oil      Gas     Water   GOR.  Wat.    Gas     Water   Avg.  bal. Satur. Pres.
+        Size    U                                             SCF/   Cut                    Pres. err. DSMAX  DPMAX
+  No.   Days IT T Days   yy:mm:dd   STB/D    MCF/D    STB/D    STB    %    MCF/D    STB/D   psia   %          psia
+ ------ ---- -- - ----- ---------- -------- -------- -------- ----- ----- -------- -------- ----- ---- ------ -----
+     1w 1.00 1  0 1.000 1986:04:23 20000.00 25400.00           1270       100000.0           4795 e-4g -2e-4w   505
+   INFO: {"systemID": 2, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 2, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 2, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 2, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 2, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 2, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 2, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 2, "level": 1, "outerNiter": 3, "niter": 3}
+     2  1.98 1  0 2.979 1986:04:25 20000.00 25400.00           1270       100000.0           4797 e-3g  1e-4o   957
+   INFO: {"systemID": 3, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 3, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 3, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 3, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 3, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 3, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 3, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 3, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 3, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 3, "level": 1, "outerNiter": 4, "niter": 4}
+     3  2.07 1  0 5.047 1986:04:27 20000.00 25400.00           1270       100000.0           4803 e-3g  .087g   281
+   INFO: {"systemID": 4, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 4, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 4, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 4, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 4, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 4, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 4, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 4, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 4, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 4, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 4, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 4, "level": 1, "outerNiter": 5, "niter": 5}
+     4  4.77 1  0  9.81 1986:05:02 20000.00 25399.99           1270       100000.0           4813 e-3g  .115g   376
+   INFO: {"systemID": 5, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 5, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 5, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 5, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 5, "level": 2, "outerNiter": 2, "niter": 4}
+   INFO: {"systemID": 5, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 5, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 5, "level": 1, "outerNiter": 3, "niter": 3}
+     5  8.31 1  0 18.12 1986:05:10 20000.00 24907.95           1245       100000.0           4822 .04g -.044o  1157
+   INFO: {"systemID": 6, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 6, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 6, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 6, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 6, "level": 2, "outerNiter": 2, "niter": 4}
+   INFO: {"systemID": 6, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 6, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 6, "level": 1, "outerNiter": 3, "niter": 3}
+     6  7.18 1  0 25.30 1986:05:17 20000.00 24676.53           1234       100000.0           4840 .04g  .102g   747
+   INFO: {"systemID": 7, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 7, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 7, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 7, "level": 1, "outerNiter": 6, "niter": 6}
+     7   9.6 1  0 34.91 1986:05:27 20000.00 24410.14           1221       100000.0           4864 .04g  .093g   599
+   INFO: {"systemID": 8, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 8, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 8, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 8, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 8, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 8, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 8, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 8, "level": 1, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 9, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 9, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 9, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 9, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 9, "level": 2, "outerNiter": 2, "niter": 7}
+   INFO: {"systemID": 9, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 9, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 9, "level": 1, "outerNiter": 3, "niter": 3}
+     8  16.0 2  0 50.95 1986:06:12 20000.00 24198.32           1210       100000.0           4905 .04g  .121g   214
+   INFO: {"systemID": 10, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 10, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_10
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_10_1.bin
+   INFO: {"systemID": 10, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 10, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_10_2.bin
+   INFO: {"systemID": 10, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 10, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_10_3.bin
+   INFO: {"systemID": 10, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 10, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_10_4.bin
+   INFO: {"systemID": 10, "level": 2, "outerNiter": 4, "niter": 9}
+   INFO: {"systemID": 10, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_10_5.bin
+   INFO: {"systemID": 10, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 10, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 11, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 11, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 11, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 11, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 11, "level": 2, "outerNiter": 2, "niter": 4}
+   INFO: {"systemID": 11, "level": 1, "outerNiter": 2, "niter": 2}
+     9  26.6 2  0 77.55 1986:07:09 20000.00 24324.02           1216       100000.0           4969 .04g  .126g  1127
+   INFO: {"systemID": 12, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 12, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 12, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 12, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 12, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 12, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 12, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 12, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 12, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 12, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 12, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 12, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 13, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 13, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 13, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 13, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 13, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 13, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 13, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 13, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 13, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 13, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 13, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 13, "level": 1, "outerNiter": 5, "niter": 5}
+    10  23.6 2  0 101.1 1986:08:01 20000.00 24431.34           1222       100000.0           5027 .04g  .141g   909
+   INFO: {"systemID": 14, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 14, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 14, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 14, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 14, "level": 2, "outerNiter": 2, "niter": 4}
+   INFO: {"systemID": 14, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 14, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 14, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 14, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 14, "level": 1, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 15, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 15, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 15, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 15, "level": 1, "outerNiter": 6, "niter": 6}
+    11  25.9 2  0 127.1 1986:08:27 20000.00 24593.08           1230       100000.0           5082 .04g  .131g  1012
+   INFO: {"systemID": 16, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 16, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 16, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 16, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 16, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 16, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 16, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 16, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 16, "level": 2, "outerNiter": 4, "niter": 6}
+   INFO: {"systemID": 16, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 16, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 16, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 17, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 17, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 17, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 17, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 17, "level": 2, "outerNiter": 2, "niter": 7}
+   INFO: {"systemID": 17, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 17, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 17, "level": 1, "outerNiter": 3, "niter": 3}
+    12  25.6 2  0 152.7 1986:09:22 20000.00 24886.93           1244       100000.0           5140 .04g  .113g  1012
+   INFO: {"systemID": 18, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 18, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 18, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 18, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 18, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 18, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 18, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 18, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 18, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 18, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 18, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 18, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 19, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 19, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 19, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 19, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 19, "level": 2, "outerNiter": 2, "niter": 11}
+   INFO: {"systemID": 19, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 19, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 19, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 19, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 19, "level": 1, "outerNiter": 4, "niter": 4}
+    13  25.3 2  0 178.1 1986:10:17 20000.00 25215.59           1261       100000.0           5199 .04g  .114g   588
+   INFO: {"systemID": 20, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 20, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 20, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 20, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 20, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 20, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 20, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 20, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 20, "level": 2, "outerNiter": 4, "niter": 10}
+   INFO: {"systemID": 20, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 20, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 20, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 21, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 21, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 21, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 21, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 21, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 21, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 21, "level": 2, "outerNiter": 3, "niter": 9}
+   INFO: {"systemID": 21, "level": 1, "outerNiter": 3, "niter": 3}
+    14  43.1 2  0 221.2 1986:11:29 20000.00 25472.07           1274       100000.0           5285 .06g  .121g  1407
+   INFO: {"systemID": 22, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 4, "niter": 8}
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 22, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 22, "level": 2, "outerNiter": 6, "niter": 9}
+   INFO: {"systemID": 22, "level": 1, "outerNiter": 6, "niter": 6}
+    15  30.6 1  0 251.8 1986:12:30 20000.00 25426.16           1271       100000.0           5354 .07g  .133g   839
+   INFO: {"systemID": 23, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 23, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 23, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 23, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 23, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 23, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 23, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 23, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 23, "level": 2, "outerNiter": 4, "niter": 9}
+   INFO: {"systemID": 23, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 23, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 23, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 24, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 24, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 24, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 24, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 24, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 24, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 24, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 24, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 24, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 24, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 24, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 24, "level": 1, "outerNiter": 5, "niter": 5}
+    16  36.5 2  0 288.2 1987:02:04 20000.00 25428.93           1271       100000.0           5428 .07g  .103g   812
+   INFO: {"systemID": 25, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 4, "niter": 10}
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 25, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 25, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 25, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 26, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 26, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 26, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 26, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 26, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 26, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 26, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 26, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 26, "level": 2, "outerNiter": 4, "niter": 10}
+   INFO: {"systemID": 26, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 26, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 26, "level": 1, "outerNiter": 5, "niter": 5}
+    17  45.0 2  0 333.2 1987:03:21 20000.00 25502.15           1275       100000.0           5525 .06g  .108g   935
+   INFO: {"systemID": 27, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 3, "niter": 7}
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 27, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 27, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 27, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 28, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 2, "niter": 11}
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 28, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 28, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 28, "level": 1, "outerNiter": 6, "niter": 6}
+    18  48.1 2  0 381.3 1987:05:08 20000.00 25611.82           1281       100000.0           5618 .07g  .123g   704
+   INFO: {"systemID": 29, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 1, "niter": 7}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 7, "niter": 3}
+   INFO: {"systemID": 29, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 29, "level": 2, "outerNiter": 8, "niter": 4}
+   INFO: {"systemID": 29, "level": 1, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 30, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_30
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_30_1.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_30_2.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 2, "niter": 11}
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_30_3.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 3, "niter": 12}
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_30_4.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 4, "niter": 11}
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_30_5.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 30, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_30_6.bin
+   INFO: {"systemID": 30, "level": 2, "outerNiter": 6, "niter": 14}
+   INFO: {"systemID": 30, "level": 1, "outerNiter": 6, "niter": 6}
+    19  68.3 2  0 449.6 1987:07:16 20000.00 25619.90           1281       100000.0           5748 .07g  .112g  1131
+   INFO: {"systemID": 31, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 4, "niter": 11}
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 31, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 31, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 31, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 32, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 32, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 32, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 32, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 32, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 32, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 32, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 32, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 32, "level": 2, "outerNiter": 4, "niter": 15}
+   INFO: {"systemID": 32, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 32, "level": 2, "outerNiter": 5, "niter": 11}
+   INFO: {"systemID": 32, "level": 1, "outerNiter": 5, "niter": 5}
+    20  60.4 2  0 509.9 1987:09:14 20000.00 25545.24           1277       100000.0           5858 .07g  .103g  1316
+   INFO: {"systemID": 33, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 33, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 33, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 33, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 33, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 33, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 33, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 33, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 33, "level": 2, "outerNiter": 4, "niter": 9}
+   INFO: {"systemID": 33, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 33, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 33, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 34, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 34, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 34, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 34, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 34, "level": 2, "outerNiter": 2, "niter": 10}
+   INFO: {"systemID": 34, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 34, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 34, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 34, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 34, "level": 1, "outerNiter": 4, "niter": 4}
+
+                                    I M E X   T I M E   S T E P   S U M M A R Y
+                                       First SPE Comparative Solution Project
+                                   (See Odeh, A.S., J.P.T., 33, pp.13-25, 1981.)
+ ==================================================================================================================
+    Time Step           Time                  Total Production             Total Injection  Total Max. Max. Change
+ ---------------- ---------------- -------------------------------------- -----------------  PV   Mat. ------------
+                C                    Oil      Gas     Water   GOR.  Wat.    Gas     Water   Avg.  bal. Satur. Pres.
+        Size    U                                             SCF/   Cut                    Pres. err. DSMAX  DPMAX
+  No.   Days IT T Days   yy:mm:dd   STB/D    MCF/D    STB/D    STB    %    MCF/D    STB/D   psia   %          psia
+ ------ ---- -- - ----- ---------- -------- -------- -------- ----- ----- -------- -------- ----- ---- ------ -----
+    21  45.9 2  0 555.8 1987:10:30 20000.00 25492.78           1275       100000.0           5940 .07g  .134g   656
+   INFO: {"systemID": 35, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 4, "niter": 9}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 7, "niter": 1}
+   INFO: {"systemID": 35, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 35, "level": 2, "outerNiter": 8, "niter": 7}
+   INFO: {"systemID": 35, "level": 1, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 36, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 36, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 36, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 36, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 36, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 36, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 36, "level": 2, "outerNiter": 3, "niter": 9}
+   INFO: {"systemID": 36, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 36, "level": 2, "outerNiter": 4, "niter": 15}
+   INFO: {"systemID": 36, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 36, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 36, "level": 1, "outerNiter": 5, "niter": 5}
+    22  68.5 2  0 624.4 1988:01:06 20000.00 25449.90           1272       100000.0           6054 .08g  .113g  1821
+   INFO: {"systemID": 37, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 2, "niter": 7}
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 5, "niter": 7}
+   INFO: {"systemID": 37, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 37, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 37, "level": 1, "outerNiter": 6, "niter": 6}
+    23  37.6 1  0 662.0 1988:02:13 20000.00 25433.59           1272       100000.0           6115 .11g  .120g   804
+   INFO: {"systemID": 38, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 38, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 38, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 38, "level": 1, "outerNiter": 7, "niter": 7}
+    24  46.8 1  0 708.9 1988:03:31 20000.00 25422.13           1271       100000.0           6187 .13g  .107g  1263
+   INFO: {"systemID": 39, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 39, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 39, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 39, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 39, "level": 2, "outerNiter": 2, "niter": 8}
+   INFO: {"systemID": 39, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 39, "level": 2, "outerNiter": 3, "niter": 9}
+   INFO: {"systemID": 39, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 39, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 39, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 39, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 39, "level": 1, "outerNiter": 5, "niter": 5}
+    25  37.1 1  0 746.0 1988:05:07 20000.00 25416.64           1271       100000.0           6245 .13g  .136g   665
+   INFO: {"systemID": 40, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 2, "niter": 9}
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 4, "niter": 10}
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 40, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 40, "level": 2, "outerNiter": 6, "niter": 7}
+   INFO: {"systemID": 40, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 41, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 4, "niter": 8}
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 41, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 41, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 41, "level": 1, "outerNiter": 6, "niter": 6}
+    26  54.6 2  0 800.6 1988:07:01 20000.00 25413.27           1271       100000.0           6328 .13g  .151g  1064
+   INFO: {"systemID": 42, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 2, "niter": 12}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 42, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 42, "level": 2, "outerNiter": 7, "niter": 1}
+   INFO: {"systemID": 42, "level": 1, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 43, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 43, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 43, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 43, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 43, "level": 2, "outerNiter": 2, "niter": 9}
+   INFO: {"systemID": 43, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 43, "level": 2, "outerNiter": 3, "niter": 9}
+   INFO: {"systemID": 43, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 43, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 43, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 43, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 43, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 44, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 44, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 44, "level": 2, "outerNiter": 1, "niter": 7}
+   INFO: {"systemID": 44, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 44, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 44, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 44, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 44, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 44, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 44, "level": 1, "outerNiter": 4, "niter": 4}
+    27  51.3 3  0 851.9 1988:08:21 20000.00 25412.55           1271       100000.0           6404 .14g  .112g   701
+   INFO: {"systemID": 45, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_45
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_45_1.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_45_2.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 2, "niter": 7}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_45_3.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 3, "niter": 10}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_45_4.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_45_5.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_45_6.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_45_7.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 7, "niter": 1}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_45_8.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 8, "niter": 6}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_45_9.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 9, "niter": 1}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_45_10.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 45, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_45_11.bin
+   INFO: {"systemID": 45, "level": 2, "outerNiter": 11, "niter": 6}
+   INFO: {"systemID": 45, "level": 1, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 46, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 5, "niter": 7}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 46, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 46, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 46, "level": 1, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 47, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 47, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 47, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 47, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 47, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 47, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 47, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 47, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 47, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 47, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 47, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 47, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 48, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 48, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 48, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 48, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 48, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 48, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 48, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 48, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 48, "level": 2, "outerNiter": 4, "niter": 13}
+   INFO: {"systemID": 48, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 48, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 48, "level": 1, "outerNiter": 5, "niter": 5}
+    28  73.3 4  0 925.2 1988:11:02 20000.00 25412.45           1271       100000.0           6509 .13g  .119g  1272
+   INFO: {"systemID": 49, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 2, "niter": 15}
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 3, "niter": 11}
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 4, "niter": 11}
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 5, "niter": 13}
+   INFO: {"systemID": 49, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 49, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 49, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 50, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 50, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 50, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 50, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 50, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 50, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 50, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 50, "level": 1, "outerNiter": 3, "niter": 3}
+    29  57.6 2  0 982.8 1988:12:30 20000.00 25411.90           1271       100000.0           6587 .15g  .081g  1292
+   INFO: {"systemID": 51, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 51, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_51
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_51_1.bin
+   INFO: {"systemID": 51, "level": 2, "outerNiter": 1, "niter": 7}
+   INFO: {"systemID": 51, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_51_2.bin
+   INFO: {"systemID": 51, "level": 2, "outerNiter": 2, "niter": 10}
+   INFO: {"systemID": 51, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_51_3.bin
+   INFO: {"systemID": 51, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 51, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_51_4.bin
+   INFO: {"systemID": 51, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 51, "level": 1, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 52, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 52, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 52, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 52, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 52, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 52, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 52, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 52, "level": 1, "outerNiter": 3, "niter": 3}
+    30  44.6 2  0  1027 1989:02:12 20000.00 25410.92           1271       100000.0           6652 .15g  .108g   885
+   INFO: {"systemID": 53, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 53, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 53, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 53, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 53, "level": 2, "outerNiter": 2, "niter": 7}
+   INFO: {"systemID": 53, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 53, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 53, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 53, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 53, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 53, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 53, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 54, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_54
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_54_1.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_54_2.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_54_3.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_54_4.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_54_5.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 54, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_54_6.bin
+   INFO: {"systemID": 54, "level": 2, "outerNiter": 6, "niter": 10}
+   INFO: {"systemID": 54, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 55, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 55, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 55, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 55, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 55, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 55, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 55, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 55, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 55, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 55, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 55, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 55, "level": 1, "outerNiter": 5, "niter": 5}
+    31  50.4 3  0  1078 1989:04:04 20000.00 25459.03           1273       100000.0           6713 .17g  .121g   707
+   INFO: {"systemID": 56, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 7, "niter": 10}
+   INFO: {"systemID": 56, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 56, "level": 2, "outerNiter": 8, "niter": 11}
+   INFO: {"systemID": 56, "level": 1, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 57, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_57
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_57_1.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_57_2.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_57_3.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_57_4.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_57_5.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_57_6.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 6, "niter": 14}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_57_7.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 7, "niter": 11}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_57_8.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 8, "niter": 10}
+   INFO: {"systemID": 57, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_57_9.bin
+   INFO: {"systemID": 57, "level": 2, "outerNiter": 9, "niter": 5}
+   INFO: {"systemID": 57, "level": 1, "outerNiter": 9, "niter": 9}
+   INFO: {"systemID": 58, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 1, "niter": 11}
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 3, "niter": 7}
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 58, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 58, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 58, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 59, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 5, "niter": 2}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 7, "niter": 10}
+   INFO: {"systemID": 59, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 59, "level": 2, "outerNiter": 8, "niter": 6}
+   INFO: {"systemID": 59, "level": 1, "outerNiter": 8, "niter": 8}
+    32  71.3 4  0  1149 1989:06:14 20000.00 27471.66           1374       100000.0           6798 .17g  .079g   715
+   INFO: {"systemID": 60, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 6, "niter": 12}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 7, "niter": 12}
+   INFO: {"systemID": 60, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 60, "level": 2, "outerNiter": 8, "niter": 11}
+   INFO: {"systemID": 60, "level": 1, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 61, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_61
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_61_1.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 1, "niter": 23}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_61_2.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_61_3.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_61_4.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_61_5.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_61_6.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_61_7.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 7, "niter": 19}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_61_8.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 8, "niter": 16}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_61_9.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 9, "niter": 11}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_61_10.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 10, "niter": 18}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_61_11.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 11, "niter": 4}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_61_12.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 12, "niter": 9}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_61_13.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 13, "niter": 12}
+   INFO: {"systemID": 61, "level": 2,  "outerNiter": 14 }
+   INFO: Dumping rhs_61_14.bin
+   INFO: {"systemID": 61, "level": 2, "outerNiter": 14, "niter": 21}
+   INFO: {"systemID": 61, "level": 1, "outerNiter": 14, "niter": 14}
+   INFO: {"systemID": 62, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 62, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 62, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 62, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 62, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 62, "level": 1, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 63, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 3, "niter": 12}
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 63, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 63, "level": 2, "outerNiter": 6, "niter": 8}
+   INFO: {"systemID": 63, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 64, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 64, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 64, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 64, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 64, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 64, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 64, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 64, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 64, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 64, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 64, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 64, "level": 1, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 65, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 8, "niter": 4}
+   INFO: {"systemID": 65, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 65, "level": 2, "outerNiter": 9, "niter": 9}
+   INFO: {"systemID": 65, "level": 1, "outerNiter": 9, "niter": 9}
+    33  49.9 3  1  1199 1989:08:03 20000.00 30048.08           1502       100000.0           6853 .17g  .116g   601
+   INFO: {"systemID": 66, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 1, "niter": 5}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 7, "niter": 2}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 8, "niter": 12}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 9, "niter": 5}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 10, "niter": 13}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 11, "niter": 12}
+   INFO: {"systemID": 66, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 66, "level": 2, "outerNiter": 12, "niter": 16}
+   INFO: {"systemID": 66, "level": 1, "outerNiter": 12, "niter": 12}
+   INFO: {"systemID": 67, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_67
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_67_1.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 1, "niter": 16}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_67_2.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_67_3.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 3, "niter": 9}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_67_4.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_67_5.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_67_6.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_67_7.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 7, "niter": 19}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_67_8.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 8, "niter": 20}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_67_9.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 9, "niter": 20}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_67_10.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 10, "niter": 13}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_67_11.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 11, "niter": 17}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_67_12.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 12, "niter": 16}
+   INFO: {"systemID": 67, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_67_13.bin
+   INFO: {"systemID": 67, "level": 2, "outerNiter": 13, "niter": 4}
+   INFO: {"systemID": 67, "level": 1, "outerNiter": 13, "niter": 13}
+   INFO: {"systemID": 68, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_68
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_68_1.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_68_2.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_68_3.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_68_4.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_68_5.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_68_6.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_68_7.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 7, "niter": 6}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_68_8.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 8, "niter": 3}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_68_9.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_68_10.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 10, "niter": 4}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_68_11.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_68_12.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 12, "niter": 3}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_68_13.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 13, "niter": 4}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 14 }
+   INFO: Dumping rhs_68_14.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 14, "niter": 19}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 15 }
+   INFO: Dumping rhs_68_15.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 15, "niter": 7}
+   INFO: {"systemID": 68, "level": 2,  "outerNiter": 16 }
+   INFO: Dumping rhs_68_16.bin
+   INFO: {"systemID": 68, "level": 2, "outerNiter": 16, "niter": 13}
+   INFO: {"systemID": 68, "level": 1, "outerNiter": 16, "niter": 16}
+   INFO: {"systemID": 69, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_69
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_69_1.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_69_2.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_69_3.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_69_4.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_69_5.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_69_6.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_69_7.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 7, "niter": 2}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_69_8.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 8, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_69_9.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_69_10.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_69_11.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 11, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_69_12.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 12, "niter": 3}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_69_13.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 13, "niter": 7}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 14 }
+   INFO: Dumping rhs_69_14.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 14, "niter": 17}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 15 }
+   INFO: Dumping rhs_69_15.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 15, "niter": 14}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 16 }
+   INFO: Dumping rhs_69_16.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 16, "niter": 4}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 17 }
+   INFO: Dumping rhs_69_17.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 17, "niter": 15}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 18 }
+   INFO: Dumping rhs_69_18.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 18, "niter": 11}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 19 }
+   INFO: Dumping rhs_69_19.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 19, "niter": 18}
+   INFO: {"systemID": 69, "level": 2,  "outerNiter": 20 }
+   INFO: Dumping rhs_69_20.bin
+   INFO: {"systemID": 69, "level": 2, "outerNiter": 20, "niter": 4}
+   INFO: {"systemID": 69, "level": 1, "outerNiter": 20, "niter": 20}
+   INFO: {"systemID": 70, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 7, "niter": 3}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 8, "niter": 6}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 9, "niter": 4}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 10, "niter": 11}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 11, "niter": 3}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 12, "niter": 5}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 13, "niter": 14}
+   INFO: {"systemID": 70, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 70, "level": 2, "outerNiter": 14, "niter": 4}
+   INFO: {"systemID": 70, "level": 1, "outerNiter": 14, "niter": 14}
+    34  83.0 5  0  1282 1989:10:25 20000.00 51368.87           2568       100000.0           6889 .10g -.131o   706
+   INFO: {"systemID": 71, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 1, "niter": 13}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 8, "niter": 5}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 9, "niter": 6}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 11, "niter": 3}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 12, "niter": 3}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 13, "niter": 13}
+   INFO: {"systemID": 71, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 71, "level": 2, "outerNiter": 14, "niter": 4}
+   INFO: {"systemID": 71, "level": 1, "outerNiter": 14, "niter": 14}
+   INFO: {"systemID": 72, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 4, "niter": 16}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 5, "niter": 3}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 7, "niter": 6}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 8, "niter": 6}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 10, "niter": 15}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 11, "niter": 15}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 12, "niter": 17}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 13, "niter": 3}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 14, "niter": 8}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 15 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 15, "niter": 18}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 16 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 16, "niter": 5}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 17 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 17, "niter": 2}
+   INFO: {"systemID": 72, "level": 2,  "outerNiter": 18 }
+   INFO: {"systemID": 72, "level": 2, "outerNiter": 18, "niter": 2}
+   INFO: {"systemID": 72, "level": 1, "outerNiter": 18, "niter": 18}
+   INFO: {"systemID": 73, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 7, "niter": 8}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 9, "niter": 4}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 10, "niter": 14}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 11, "niter": 16}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 12, "niter": 3}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 13, "niter": 3}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 14, "niter": 3}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 15 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 15, "niter": 11}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 16 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 16, "niter": 9}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 17 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 17, "niter": 3}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 18 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 18, "niter": 13}
+   INFO: {"systemID": 73, "level": 2,  "outerNiter": 19 }
+   INFO: {"systemID": 73, "level": 2, "outerNiter": 19, "niter": 3}
+   INFO: {"systemID": 73, "level": 1, "outerNiter": 19, "niter": 19}
+    35   117 3  0  1399 1990:02:19 20000.00 110071.1           5504       100000.0           6687 .05o -.079o  1010
+   INFO: {"systemID": 74, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 1, "niter": 17}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 8, "niter": 2}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 9, "niter": 4}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 11, "niter": 4}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 12, "niter": 4}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 13, "niter": 8}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 14, "niter": 6}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 15 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 15, "niter": 17}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 16 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 16, "niter": 4}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 17 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 17, "niter": 11}
+   INFO: {"systemID": 74, "level": 2,  "outerNiter": 18 }
+   INFO: {"systemID": 74, "level": 2, "outerNiter": 18, "niter": 5}
+   INFO: {"systemID": 74, "level": 1, "outerNiter": 18, "niter": 18}
+   INFO: {"systemID": 75, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 5, "niter": 2}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 7, "niter": 2}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 8, "niter": 2}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 10, "niter": 13}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 11, "niter": 17}
+   INFO: {"systemID": 75, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 75, "level": 2, "outerNiter": 12, "niter": 11}
+   INFO: {"systemID": 75, "level": 1, "outerNiter": 12, "niter": 12}
+   INFO: {"systemID": 76, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_76
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_76_1.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_76_2.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_76_3.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_76_4.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_76_5.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 5, "niter": 2}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_76_6.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_76_7.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_76_8.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 8, "niter": 2}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_76_9.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 9, "niter": 5}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_76_10.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 10, "niter": 9}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_76_11.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 11, "niter": 3}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_76_12.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 12, "niter": 7}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_76_13.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 13, "niter": 3}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 14 }
+   INFO: Dumping rhs_76_14.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 14, "niter": 5}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 15 }
+   INFO: Dumping rhs_76_15.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 15, "niter": 12}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 16 }
+   INFO: Dumping rhs_76_16.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 16, "niter": 15}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 17 }
+   INFO: Dumping rhs_76_17.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 17, "niter": 11}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 18 }
+   INFO: Dumping rhs_76_18.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 18, "niter": 9}
+   INFO: {"systemID": 76, "level": 2,  "outerNiter": 19 }
+   INFO: Dumping rhs_76_19.bin
+   INFO: {"systemID": 76, "level": 2, "outerNiter": 19, "niter": 4}
+   INFO: {"systemID": 76, "level": 1, "outerNiter": 19, "niter": 19}
+    36   116 3  0  1516 1990:06:16 20000.00 144506.0           7225       100000.0           6329 .05o -.077o   698
+   INFO: {"systemID": 77, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 1, "niter": 16}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 7, "niter": 3}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 8, "niter": 4}
+   INFO: {"systemID": 77, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 77, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 77, "level": 1, "outerNiter": 9, "niter": 9}
+   INFO: {"systemID": 78, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 78, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 78, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 78, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 78, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 78, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 78, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 78, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 78, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 78, "level": 1, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 79, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 6, "niter": 13}
+   INFO: {"systemID": 79, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 79, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 79, "level": 1, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 80, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 4, "niter": 6}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 80, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 80, "level": 2, "outerNiter": 9, "niter": 4}
+   INFO: {"systemID": 80, "level": 1, "outerNiter": 9, "niter": 9}
+   INFO: {"systemID": 81, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 4, "niter": 11}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 6, "niter": 17}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 7, "niter": 11}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 8, "niter": 18}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 9, "niter": 11}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 10, "niter": 15}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 11, "niter": 3}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 12, "niter": 6}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 13, "niter": 7}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 14, "niter": 4}
+   INFO: {"systemID": 81, "level": 2,  "outerNiter": 15 }
+   INFO: {"systemID": 81, "level": 2, "outerNiter": 15, "niter": 12}
+   INFO: {"systemID": 81, "level": 1, "outerNiter": 15, "niter": 15}
+   INFO: {"systemID": 82, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 5, "niter": 6}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 6, "niter": 7}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 7, "niter": 12}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 8, "niter": 17}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 9, "niter": 15}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 10, "niter": 13}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 11, "niter": 6}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 12, "niter": 7}
+   INFO: {"systemID": 82, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 82, "level": 2, "outerNiter": 13, "niter": 5}
+   INFO: {"systemID": 82, "level": 1, "outerNiter": 13, "niter": 13}
+    37   167 6  0  1682 1990:11:29 20000.00 182618.0           9131       100000.0           5641 .07g -.117o  -814
+   INFO: {"systemID": 83, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 2, "niter": 11}
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 3, "niter": 16}
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 5, "niter": 18}
+   INFO: {"systemID": 83, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 83, "level": 2, "outerNiter": 6, "niter": 16}
+   INFO: {"systemID": 83, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 84, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 1, "niter": 3}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 5, "niter": 10}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 6, "niter": 8}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 7, "niter": 17}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 8, "niter": 4}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 9, "niter": 11}
+   INFO: {"systemID": 84, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 84, "level": 2, "outerNiter": 10, "niter": 6}
+   INFO: {"systemID": 84, "level": 1, "outerNiter": 10, "niter": 10}
+   INFO: {"systemID": 85, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 6, "niter": 1}
+   INFO: {"systemID": 85, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 85, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 85, "level": 1, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 86, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 3, "niter": 1}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 8, "niter": 15}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 9, "niter": 7}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 10, "niter": 18}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 11, "niter": 18}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 12, "niter": 4}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 13, "niter": 9}
+   INFO: {"systemID": 86, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 86, "level": 2, "outerNiter": 14, "niter": 6}
+   INFO: {"systemID": 86, "level": 1, "outerNiter": 14, "niter": 14}
+   INFO: {"systemID": 87, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 87, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 87, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 87, "level": 1, "outerNiter": 6, "niter": 6}
+    38   205 5  0  1887 1991:06:22 13584.88 130247.4           9588       100000.0           5282 .07g -.134o  -450
+   INFO: {"systemID": 88, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 1, "niter": 15}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 4, "niter": 6}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 5, "niter": 16}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 6, "niter": 13}
+   INFO: {"systemID": 88, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 88, "level": 2, "outerNiter": 7, "niter": 20}
+   INFO: {"systemID": 88, "level": 1, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 89, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_89
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_89_1.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_89_2.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_89_3.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_89_4.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 4, "niter": 18}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_89_5.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 5, "niter": 19}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_89_6.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_89_7.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 7, "niter": 16}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_89_8.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 8, "niter": 11}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_89_9.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 9, "niter": 17}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_89_10.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 10, "niter": 6}
+   INFO: {"systemID": 89, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_89_11.bin
+   INFO: {"systemID": 89, "level": 2, "outerNiter": 11, "niter": 2}
+   INFO: {"systemID": 89, "level": 1, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 90, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 90, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 90, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 90, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 90, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 90, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 90, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 90, "level": 1, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 91, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 4, "niter": 4}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 5, "niter": 1}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 6, "niter": 15}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 7, "niter": 14}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 8, "niter": 15}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 91, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 91, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 91, "level": 1, "outerNiter": 10, "niter": 10}
+   INFO: {"systemID": 92, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 1, "niter": 13}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 8, "niter": 14}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 9, "niter": 9}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 10, "niter": 5}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 11, "niter": 6}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 12, "niter": 6}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 13, "niter": 9}
+   INFO: {"systemID": 92, "level": 2,  "outerNiter": 14 }
+   INFO: {"systemID": 92, "level": 2, "outerNiter": 14, "niter": 15}
+   INFO: {"systemID": 92, "level": 1, "outerNiter": 14, "niter": 14}
+   INFO: {"systemID": 93, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 4, "niter": 1}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 5, "niter": 2}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 7, "niter": 4}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 8, "niter": 3}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 9, "niter": 5}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 10, "niter": 15}
+   INFO: {"systemID": 93, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 93, "level": 2, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 93, "level": 1, "outerNiter": 11, "niter": 11}
+    39   305 6  0  2192 1992:04:22 11226.54 127720.8          11377       100000.0           4858 .08g -.132o  -472
+   INFO: {"systemID": 94, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 1, "niter": 17}
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 2, "niter": 15}
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 3, "niter": 15}
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 4, "niter": 17}
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 5, "niter": 17}
+   INFO: {"systemID": 94, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 94, "level": 2, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 94, "level": 1, "outerNiter": 6, "niter": 6}
+   INFO: {"systemID": 95, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 3, "niter": 17}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 4, "niter": 5}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 5, "niter": 8}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 6, "niter": 9}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 7, "niter": 15}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 8, "niter": 6}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 9, "niter": 3}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 10, "niter": 9}
+   INFO: {"systemID": 95, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 95, "level": 2, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 95, "level": 1, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 96, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_96
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_96_1.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_96_2.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_96_3.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_96_4.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 4, "niter": 8}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_96_5.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 5, "niter": 2}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_96_6.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_96_7.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 7, "niter": 6}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_96_8.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 8, "niter": 8}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_96_9.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 9, "niter": 13}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_96_10.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 10, "niter": 16}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_96_11.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 96, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_96_12.bin
+   INFO: {"systemID": 96, "level": 2, "outerNiter": 12, "niter": 14}
+   INFO: {"systemID": 96, "level": 1, "outerNiter": 12, "niter": 12}
+   INFO: {"systemID": 97, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 4, "niter": 3}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 6, "niter": 16}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 7, "niter": 2}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 8, "niter": 3}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 9, "niter": 2}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 10, "niter": 14}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 11, "niter": 2}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 12, "niter": 14}
+   INFO: {"systemID": 97, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 97, "level": 2, "outerNiter": 13, "niter": 20}
+   INFO: {"systemID": 97, "level": 1, "outerNiter": 13, "niter": 13}
+   INFO: {"systemID": 98, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_98
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_98_1.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_98_2.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_98_3.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_98_4.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_98_5.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 5, "niter": 14}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_98_6.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 6, "niter": 13}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_98_7.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 7, "niter": 19}
+   INFO: {"systemID": 98, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_98_8.bin
+   INFO: {"systemID": 98, "level": 2, "outerNiter": 8, "niter": 7}
+   INFO: {"systemID": 98, "level": 1, "outerNiter": 8, "niter": 8}
+    40   463 5  0  2655 1993:07:29 9268.644 122239.6          13189       100000.0           4435 .09g -.200o  -463
+   INFO: {"systemID": 99, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_99
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_99_1.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 1, "niter": 15}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_99_2.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_99_3.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 3, "niter": 21}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_99_4.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 4, "niter": 6}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_99_5.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 5, "niter": 16}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_99_6.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_99_7.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 7, "niter": 2}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_99_8.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 8, "niter": 1}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_99_9.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 9, "niter": 2}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_99_10.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 10, "niter": 2}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_99_11.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 11, "niter": 6}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_99_12.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 12, "niter": 5}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_99_13.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 13, "niter": 10}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 14 }
+   INFO: Dumping rhs_99_14.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 14, "niter": 15}
+   INFO: {"systemID": 99, "level": 2,  "outerNiter": 15 }
+   INFO: Dumping rhs_99_15.bin
+   INFO: {"systemID": 99, "level": 2, "outerNiter": 15, "niter": 17}
+   INFO: {"systemID": 99, "level": 1, "outerNiter": 15, "niter": 15}
+   INFO: {"systemID": 100, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 3, "niter": 11}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 4, "niter": 17}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 5, "niter": 15}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 6, "niter": 17}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 8, "niter": 2}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 9, "niter": 4}
+   INFO: {"systemID": 100, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 100, "level": 2, "outerNiter": 10, "niter": 5}
+   INFO: {"systemID": 100, "level": 1, "outerNiter": 10, "niter": 10}
+   INFO: {"systemID": 101, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 6, "niter": 10}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 7, "niter": 11}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 8, "niter": 7}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 9, "niter": 14}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 10, "niter": 14}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 11, "niter": 18}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 12, "niter": 16}
+   INFO: {"systemID": 101, "level": 2,  "outerNiter": 13 }
+   INFO: {"systemID": 101, "level": 2, "outerNiter": 13, "niter": 15}
+   INFO: {"systemID": 101, "level": 1, "outerNiter": 13, "niter": 13}
+   INFO: {"systemID": 102, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 102, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 102, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 102, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 102, "level": 2, "outerNiter": 2, "niter": 1}
+   INFO: {"systemID": 102, "level": 1, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 103, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 1, "niter": 4}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 2, "niter": 4}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 4, "niter": 14}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 5, "niter": 5}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 7, "niter": 10}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 8, "niter": 11}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 9, "niter": 18}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 10, "niter": 11}
+   INFO: {"systemID": 103, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 103, "level": 2, "outerNiter": 11, "niter": 12}
+   INFO: {"systemID": 103, "level": 1, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 104, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 1, "niter": 7}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 3, "niter": 8}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 4, "niter": 14}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 5, "niter": 13}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 6, "niter": 2}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 7, "niter": 13}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 8, "niter": 14}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 9, "niter": 11}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 10, "niter": 7}
+   INFO: {"systemID": 104, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 104, "level": 2, "outerNiter": 11, "niter": 8}
+   INFO: {"systemID": 104, "level": 1, "outerNiter": 11, "niter": 11}
+
+                                    I M E X   T I M E   S T E P   S U M M A R Y
+                                       First SPE Comparative Solution Project
+                                   (See Odeh, A.S., J.P.T., 33, pp.13-25, 1981.)
+ ==================================================================================================================
+    Time Step           Time                  Total Production             Total Injection  Total Max. Max. Change
+ ---------------- ---------------- -------------------------------------- -----------------  PV   Mat. ------------
+                C                    Oil      Gas     Water   GOR.  Wat.    Gas     Water   Avg.  bal. Satur. Pres.
+        Size    U                                             SCF/   Cut                    Pres. err. DSMAX  DPMAX
+  No.   Days IT T Days   yy:mm:dd   STB/D    MCF/D    STB/D    STB    %    MCF/D    STB/D   psia   %          psia
+ ------ ---- -- - ----- ---------- -------- -------- -------- ----- ----- -------- -------- ----- ---- ------ -----
+    41   462 6  0  3116 1994:11:02 8095.531 117630.4          14530       100000.0           4172 .10g -.155o  -287
+   INFO: {"systemID": 105, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 1 }
+   INFO: Dumping mat_105
+Error: DumperIJK has no data to dump.
+   INFO: Dumping rhs_105_1.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 1, "niter": 21}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 2 }
+   INFO: Dumping rhs_105_2.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 3 }
+   INFO: Dumping rhs_105_3.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 4 }
+   INFO: Dumping rhs_105_4.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 4, "niter": 7}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 5 }
+   INFO: Dumping rhs_105_5.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 5, "niter": 9}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 6 }
+   INFO: Dumping rhs_105_6.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 7 }
+   INFO: Dumping rhs_105_7.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 7, "niter": 5}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 8 }
+   INFO: Dumping rhs_105_8.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 8, "niter": 9}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 9 }
+   INFO: Dumping rhs_105_9.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 9, "niter": 13}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 10 }
+   INFO: Dumping rhs_105_10.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 10, "niter": 23}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 11 }
+   INFO: Dumping rhs_105_11.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 11, "niter": 9}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 12 }
+   INFO: Dumping rhs_105_12.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 12, "niter": 5}
+   INFO: {"systemID": 105, "level": 2,  "outerNiter": 13 }
+   INFO: Dumping rhs_105_13.bin
+   INFO: {"systemID": 105, "level": 2, "outerNiter": 13, "niter": 4}
+   INFO: {"systemID": 105, "level": 1, "outerNiter": 13, "niter": 13}
+   INFO: {"systemID": 106, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 106, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 106, "level": 2, "outerNiter": 1, "niter": 6}
+   INFO: {"systemID": 106, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 106, "level": 2, "outerNiter": 2, "niter": 6}
+   INFO: {"systemID": 106, "level": 1, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 107, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 2, "niter": 5}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 3, "niter": 6}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 4, "niter": 12}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 5, "niter": 11}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 6, "niter": 3}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 7, "niter": 7}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 8, "niter": 10}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 9, "niter": 16}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 10, "niter": 9}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 11, "niter": 7}
+   INFO: {"systemID": 107, "level": 2,  "outerNiter": 12 }
+   INFO: {"systemID": 107, "level": 2, "outerNiter": 12, "niter": 7}
+   INFO: {"systemID": 107, "level": 1, "outerNiter": 12, "niter": 12}
+   INFO: {"systemID": 108, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 108, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 108, "level": 2, "outerNiter": 1, "niter": 2}
+   INFO: {"systemID": 108, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 108, "level": 2, "outerNiter": 2, "niter": 3}
+   INFO: {"systemID": 108, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 108, "level": 2, "outerNiter": 3, "niter": 5}
+   INFO: {"systemID": 108, "level": 1, "outerNiter": 3, "niter": 3}
+   INFO: {"systemID": 109, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 3, "niter": 4}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 5, "niter": 11}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 6, "niter": 4}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 7, "niter": 10}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 8, "niter": 5}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 9, "niter": 17}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 10, "niter": 10}
+   INFO: {"systemID": 109, "level": 2,  "outerNiter": 11 }
+   INFO: {"systemID": 109, "level": 2, "outerNiter": 11, "niter": 6}
+   INFO: {"systemID": 109, "level": 1, "outerNiter": 11, "niter": 11}
+   INFO: {"systemID": 110, "level": 1,  "outerNiter": 0 }
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 1 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 1, "niter": 1}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 2 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 2, "niter": 2}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 3 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 3, "niter": 2}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 4 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 4, "niter": 2}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 5 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 5, "niter": 4}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 6 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 6, "niter": 5}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 7 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 7, "niter": 9}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 8 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 8, "niter": 10}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 9 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 9, "niter": 8}
+   INFO: {"systemID": 110, "level": 2,  "outerNiter": 10 }
+   INFO: {"systemID": 110, "level": 2, "outerNiter": 10, "niter": 3}
+   INFO: {"systemID": 110, "level": 1, "outerNiter": 10, "niter": 10}
+    42   534 6  0  3650 1996:04:19 6989.849 116287.4          16637       100000.0           3970 .10g -.142o  -217
+
+ ===================== SUMMARY (from subroutine: TSIO)   ======================
+  Simulation run terminated. Stopping time reached.
+    
+     4 Warning messages.    0 Error messages.
+ ==============================================================================
+
+
+           CPU  Statistics        
+  Task               CPU(sec)  %of tot CPU     Clock(sec)  %of tot Clock  Clock(sec)/call
+
+  Dyn Dim Scan           0.01      0.01              0.06       2.68
+  Setup                  1.71      1.47              0.06       2.98
+  Jacobian               0.05      0.04              0.00       0.19           0.00004
+  Solver                96.42     82.78              1.74      80.75           0.01581
+  Well Head              0.02      0.02              0.00       0.04
+  Pointers               0.57      0.49              0.01       0.59
+  Pointers SBR           0.16      0.14              0.01       0.28
+    pntrsbrpar           0.02      0.02              0.00       0.01
+    ordersbr             0.03      0.03              0.00       0.04
+    blkpntrsbr           0.11      0.10              0.00       0.23
+  Pntrs callap           0.01      0.01              0.00       0.01
+  Pntrs inilstp          0.03      0.02              0.00       0.00
+  Pntrs endlstp          0.01      0.01              0.00       0.01
+  Vrec                   0.64      0.55              0.00       0.11
+  Stab                   0.00      0.00              0.00       0.00
+  Maxchanges             0.01      0.01              0.00       0.13
+  Conv                   0.14      0.12              0.01       0.52
+  Timestep Up            3.04      2.61              0.04       1.98
+  Compact Up             0.00      0.00              0.00       0.00
+  Well Manage            0.36      0.31              0.00       0.23
+  Output                13.51     11.60              0.21       9.79
+
+
+  Subtotal             116.47    100.00              2.15     100.00
+
+
+  Calljb/Conv            0.09      0.07              0.00       0.22
+  Jbuild Total           0.10      0.08              0.00       0.19
+  Setupv Total           0.02      0.02              0.00       0.11
+  Upkcyc Total           0.01      0.01              0.00       0.09
+  Upwell Total           0.01      0.01              0.00       0.07
+  Stab Total             0.00      0.00              0.00       0.00
+  Data Inp Tot           0.94      0.81              0.05       2.42
+  Init Pointers          0.41      0.35              0.01       0.31
+  Initial Total          0.01      0.01              0.00       0.01
+  RestartIn Tot          0.00      0.00              0.00       0.00
+  Obtn License           0.00      0.00              0.05       2.26
+  Updte License          0.00      0.00              0.00       0.00
+
+  AIMSOL timing breakdown:
+  Prepro Total           0.00      0.00              0.00       0.00           0.00000
+  Scalp Total            0.00      0.00              0.00       0.00           0.00000
+  Genluv Total           0.00      0.00              0.00       0.00           0.00000
+  Gmres Total            0.00      0.00              0.00       0.00           0.00000
+  Red Total              0.00      0.00              0.00       0.00           0.00000
+  Pstpro Total           0.00      0.00              0.00       0.00           0.00000
+  Forbkv Total           0.00      0.00              0.00       0.00           0.00000
+  Avmult Total           0.00      0.00              0.00       0.00           0.00000
+
+       Field Total                                   Fluid
+                             Oil       Gas       Water    Solvent   Polymer   Seawater
+                            -------   -------   -------   -------   -------   -------
+                            (MSTB)    (MMSCF)   (MSTB)    (MMSCF)   (MLB)     (MSTB)
+  Cumulative Production       51607    333728      0        NA        NA        NA   
+  Cumulative Injection        NA       365000      0        NA        NA        NA   
+  Cumulative Gas Lift         NA         0        NA        NA        NA        NA   
+  Cumulative Water Influx     NA        NA         0        NA        NA        NA   
+  Current Fluids In Place    232920    392864     63382     NA        NA        NA   
+  Production Rates           6.9898    116.29      0        NA        NA        NA   
+  Injection Rates             NA       100.00      0        NA        NA        NA   
+
+  Timesteps:     42  Newton Cycles:      110  Cuts:      1  Solver Iterations:            0
+  Average Implicitness    : 0.302
+  Material Balances (owg): 1.000 1.000 0.999
+  Average Active Blocks:         300 Average Non-BHP Active Wells:     2
+  Total Blocks :         300 Total Wells :     2
+  Active Blocks:         300 Non-BHP Active Wells:     1
+  Total lstpro/lstpar calls:     4
+  Time at end of simulation:   3650.00     (days)   
+  Average reservoir pressure excluding water zone: 3969.684 (psi)    
+  Total Number of Solver Failures:       0  Stalls:       0  ITERMAX Reached:       0
+  Jacobian Domains     64
+  Linear Solver: Aimsol
+  Preconditioner Ordering     NATURAL 
+  Preconditioner Degree           2
+  Max Impl Blocks:      177  %Impl: 59.0%  (TS,CUT,NCYC): (   42, 0,  4 )
+  Max Solver Time(sec) (TS,CUT,NCYC):     0.05 (   34, 0,  4 )
+  Memory Usage Peak:      132 MB on TS:   42  TS 1 Peak:       86 MB  Average:      100 MB  VM Size:     4842 MB
+  Host computer: sol
+
+  End of Simulation: Normal Termination
+
+  CPU Time:           116.47 seconds
+  Elapsed Time:         2.16 seconds
+
+ Unused Command-line Arguments:  -inaws_off
+
++===============================================================================================================================================+
+|::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: SolverBR Build Info :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::|
++===============================================================================================================================================+
+| Compiler ID         | Intel 1910                                                                                                              |
+| Compiler flags      | -std=c++17 -O3 -fPIC -m64 -xHost -no-prec-div -fp-model fast=2 -no-inline-max-size -qopenmp-simd -qopenmp -qopenmp-simd |
+| Build mode          | Release                                                                                                                 |
+| OpenMP Max NThreads | 64                                                                                                                      |
+|   env KMP_AFFINITY  | compact,0                                                                                                               |
+|   env OMP_PROC_BIND |                                                                                                                         |
+|   env OMP_PLACES    |                                                                                                                         |
+| Git branch          | dump-pressure-matrices                                                                                                  |
+| Git commit          | 1402b0fe5 from 2025-10-24 14:50:48 -0300                                                                                |
++===============================================================================================================================================+
+
+
++====================================================================================================================================================================================================+
+|:::::::::::::::::::::::::::::::::::::::::::::::::::::::: SolverBR times CPP:{Intel1910} MPI:{OFF} OpenMP:{ON} ACC:{OFF} Commit:{1402b0fe5} :::::::::::::::::::::::::::::::::::::::::::::::::::::::::|
++====================================================================================================================================================================================================+
+| Level | Timer Label                                                           | Total Time             | # Measurements | Avg. Time              | Min. Time              | Max. Time              |
++====================================================================================================================================================================================================+
+| 0     | Generate 2D grid partition                                            | 6.5047293901443481e-05 | 1              | 6.5047293901443481e-05 | 6.5047293901443481e-05 | 6.5047293901443481e-05 |
+| 0     | SolverBR (AIM)                                                        | 2.0406364649534225     | 1              | 2.0406364649534225     | 2.0406364649534225     | 2.0406364649534225     |
+| 1     | ..Solver setup                                                        | 0.0057372227311134338  | 1              | 0.0057372227311134338  | 0.0057372227311134338  | 0.0057372227311134338  |
+| 1     | ..Generate 2D grid partition                                          | 0.00010438635945320129 | 3              | 3.47954531510671e-05   | 3.1147152185440063e-05 | 4.1123479604721069e-05 |
+| 1     | ..Set Transmissibility #BARRIER                                       | 8.5718929767608643e-06 | 2              | 4.2859464883804321e-06 | 4.2244791984558105e-06 | 4.3474137783050537e-06 |
+| 1     | ..Create AIM system #BARRIER                                          | 0.074461203068494797   | 110            | 0.00067692002789540725 | 0.00060985982418060303 | 0.0011449046432971954  |
+| 1     | ..Symbolic factorization #BARRIER                                     | 0.0014339163899421692  | 110            | 1.303560354492881e-05  | 1.0803341865539551e-06 | 0.00070323050022125244 |
+| 2     | ....Time to get sparsity of pressure #BARRIER                         | 0.001145627349615097   | 2              | 0.00057281367480754852 | 0.00049811974167823792 | 0.00064750760793685913 |
+| 2     | ....SymbolicSetup pressure system #BARRIER                            | 5.9943646192550659e-05 | 2              | 2.997182309627533e-05  | 2.8073787689208984e-05 | 3.1869858503341675e-05 |
+| 3     | ......Preconditioner Symbolic Setup                                   | 2.6490539312362671e-05 | 2              | 1.3245269656181335e-05 | 5.5283308029174805e-06 | 2.096220850944519e-05  |
+| 2     | ....Preconditioner Symbolic Setup                                     | 5.7518482208251953e-06 | 2              | 2.8759241104125977e-06 | 2.1532177925109863e-06 | 3.598630428314209e-06  |
+| 1     | ..Solving AIM system #BARRIER                                         | 1.6550318598747253     | 110            | 0.015045744180679322   | 0.0037436671555042267  | 0.050889711827039719   |
+| 2     | ....Matrix scaling #BARRIER                                           | 0.0047290846705436707  | 110            | 4.299167882312428e-05  | 1.4223158359527588e-05 | 0.000299062579870224   |
+| 2     | ....Conversion to implicit vector #BARRIER                            | 0.0038894191384315491  | 110            | 3.5358355803923172e-05 | 2.5447458028793335e-05 | 6.535649299621582e-05  |
+| 2     | ....Inner solver #BARRIER                                             | 1.6309877932071686     | 110            | 0.014827161756428805   | 0.0035504885017871857  | 0.050657860934734344   |
+| 3     | ......Get values from pressure #BARRIER                               | 0.0011188536882400513  | 110            | 1.0171397165818648e-05 | 8.2403421401977539e-06 | 2.9824674129486084e-05 |
+| 3     | ......Numeric setup pressure system                                   | 0.00075940787792205811 | 110            | 6.9037079811096193e-06 | 5.7369470596313477e-06 | 2.3093074560165405e-05 |
+| 4     | ........Preconditioner Numeric Setup #BARRIER                         | 0.00044548884034156799 | 110            | 4.0498985485597094e-06 | 3.1739473342895508e-06 | 1.5851110219955444e-05 |
+| 5     | ..........ILUCore Numerical Setup                                     | 5.2016228437423706e-05 | 110            | 4.7287480397657915e-07 | 3.5762786865234375e-07 | 2.2351741790771484e-06 |
+| 3     | ......Preconditioner Numeric Setup #BARRIER                           | 0.001453883945941925   | 110            | 1.3217126781290228e-05 | 9.1344118118286133e-06 | 0.00017077848315238953 |
+| 3     | ......SystemDumper::dump #BARRIER                                     | 0.00025828555226325989 | 110            | 2.3480504751205443e-06 | 1.691281795501709e-06  | 5.1781535148620605e-06 |
+| 3     | ......GMRES.solve #BARRIER                                            | 1.557191289961338      | 110            | 0.014156284454193983   | 0.0029188096523284912  | 0.049981452524662018   |
+| 4     | ........Composite Preconditioner Application                          | 1.4114613570272923     | 845            | 0.0016703684698547838  | 0.00089832395315170288 | 0.013765648007392883   |
+| 5     | ..........composite.pc1.apply                                         | 1.3949676975607872     | 845            | 0.0016508493462257837  | 0.00087374821305274963 | 0.013712406158447266   |
+| 6     | ............Solve pressure system #BARRIER                            | 1.3910062350332737     | 845            | 0.0016461612248914481  | 0.00087026134133338928 | 0.013706568628549576   |
+| 7     | ..............Time to get pressure values from implicit AIM #BARRIER  | 0.0034043341875076294  | 845            | 4.0287978550386144e-06 | 2.7418136596679688e-06 | 5.8487057685852051e-05 |
+| 7     | ..............Inner Solver of preconditioner #BARRIER                 | 1.3700709231197834     | 845            | 0.0016213857078340632  | 0.00085474923253059387 | 0.013692803680896759   |
+| 8     | ................SystemDumper::dump #BARRIER                           | 0.25195459648966789    | 845            | 0.00029817112010611582 | 1.6130506992340088e-06 | 0.010794080793857574   |
+| 9     | ..................MatrixDumper::DumpBlocked #BARRIER                  | 0.15331270173192024    | 16             | 0.0095820438582450151  | 0.0093470625579357147  | 0.0096904002130031586  |
+| 9     | ..................DumperIJK::dump #BARRIER                            | 0.0012991540133953094  | 16             | 8.1197125837206841e-05 | 7.4181705713272095e-05 | 8.9082866907119751e-05 |
+| 8     | ................GMRES.solve #BARRIER                                  | 0.76264581456780434    | 845            | 0.00090253942552402883 | 0.00045898184180259705 | 0.0077606625854969025  |
+| 9     | ..................Preconditioner Solve #BARRIER                       | 0.023140769451856613   | 5136           | 4.5056015287882812e-06 | 2.9727816581726074e-06 | 0.00011210143566131592 |
+| 10    | ....................ILUCore Solve (L * w = x)                         | 0.00043797492980957031 | 5136           | 8.5275492564168676e-08 | 3.7252902984619141e-08 | 4.2840838432312012e-07 |
+| 10    | ....................ILUCore Solve (U * y = w)                         | 0.00034628808498382568 | 5136           | 6.7423692559156085e-08 | 2.9802322387695312e-08 | 3.0174851417541504e-07 |
+| 9     | ..................Matvec #BARRIER                                     | 0.012637864798307419   | 5136           | 2.4606434576143727e-06 | 1.4603137969970703e-06 | 0.00023265182971954346 |
+| 9     | ..................Gram-Schmidt [ModifiedGS/Oblivious] #BARRIER        | 0.20830349251627922    | 5136           | 4.0557533589618228e-05 | 1.0885298252105713e-05 | 0.00071804970502853394 |
+| 9     | ..................Update and convergence #BARRIER                     | 0.019012629985809326   | 845            | 2.250015382936015e-05  | 1.9177794456481934e-05 | 0.00032758340239524841 |
+| 10    | ....................Preconditioner Solve #BARRIER                     | 0.0035980045795440674  | 845            | 4.257993585259251e-06  | 3.1441450119018555e-06 | 6.076321005821228e-05  |
+| 11    | ......................ILUCore Solve (L * w = x)                       | 6.0927122831344604e-05 | 845            | 7.2103103942419654e-08 | 4.0978193283081055e-08 | 2.6822090148925781e-07 |
+| 11    | ......................ILUCore Solve (U * y = w)                       | 5.1856040954589844e-05 | 845            | 6.1368095804248332e-08 | 2.9802322387695312e-08 | 2.123415470123291e-07  |
+| 10    | ....................Matvec #BARRIER                                   | 0.0018775761127471924  | 845            | 2.2219835653812928e-06 | 1.6130506992340088e-06 | 3.0267983675003052e-05 |
+| 7     | ..............Time assign values to AIMImplicitDenseVector:  #BARRIER | 0.0024130381643772125  | 845            | 2.8556664667185945e-06 | 1.7508864402770996e-06 | 4.5940279960632324e-05 |
+| 5     | ..........composite.operator.apply                                    | 0.00083477795124053955 | 845            | 9.8790290087637823e-07 | 4.9918889999389648e-07 | 5.5823475122451782e-05 |
+| 5     | ..........composite.pc2.apply                                         | 0.0079900175333023071  | 845            | 9.4556420512453337e-06 | 6.3665211200714111e-06 | 0.00013235956430435181 |
+| 6     | ............Preconditioner Solve #BARRIER                             | 0.0044463910162448883  | 845            | 5.2620012026566721e-06 | 3.1515955924987793e-06 | 0.00011227652430534363 |
+| 4     | ........Matvec #BARRIER                                               | 0.0022571906447410583  | 845            | 2.6712315322379387e-06 | 1.5534460544586182e-06 | 3.3691525459289551e-05 |
+| 4     | ........Gram-Schmidt [ModifiedGS/Oblivious] #BARRIER                  | 0.038000311702489853   | 845            | 4.497078307986965e-05  | 1.1727213859558105e-05 | 0.0014030933380126953  |
+| 4     | ........Update and convergence #BARRIER                               | 0.0014396943151950836  | 110            | 1.3088130138137124e-05 | 9.752810001373291e-06  | 2.2303313016891479e-05 |
+| 5     | ..........Matvec                                                      | 5.5912882089614868e-05 | 110            | 5.0829892808740787e-07 | 2.6822090148925781e-07 | 1.255422830581665e-06  |
+| 2     | ....Solution for explicit vars #BARRIER                               | 0.012795377522706985   | 110            | 0.00011632161384279078 | 0.00010066106915473938 | 0.0012185536324977875  |
+| 1     | ..Collect memory stats #BARRIER                                       | 0.0001096576452255249  | 2              | 5.4828822612762451e-05 | 4.5649707317352295e-05 | 6.4007937908172607e-05 |
++====================================================================================================================================================================================================+
+
+
++===================================================================================================================+
+|::::::::::::: SolverBR statistics CPP:{Intel1910} MPI:{OFF} OpenMP:{ON} ACC:{OFF} Commit:{1402b0fe5} ::::::::::::::|
++===================================================================================================================+
+| Level | Stat Label         | #Measurements | Mode      | Mode #Entries | Median | Average           | Min. | Max. |
++===================================================================================================================+
+| 0     | .AIM.GMRES.niter   | 110           | 5         | 20            | 6      | 8                 | 2    | 20   |
+| 0     | .AIM.GMRES.reason  | 110           | Converged | 110           | --     | Conv Rate: 100[%] | --   | --   |
+| 1     | ..CPR.GMRES.niter  | 845           | 1         | 128           | 5      | 6                 | 1    | 23   |
+| 1     | ..CPR.GMRES.reason | 845           | Converged | 845           | --     | Conv Rate: 100[%] | --   | --   |
++===================================================================================================================+
+
+
+Total memory:        377.396 GB
+AVG Resident memory: 0.102264 GB
+AVG Used memory:     8.06649 GB
+Number of mem stats: 4
+Skip memory evolution (less than 10 memory stats)
+
+  Date and Time of End of Run:  Oct 30, 2025  11:36:29
+
