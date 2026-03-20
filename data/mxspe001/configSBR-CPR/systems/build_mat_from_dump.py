@@ -2,7 +2,7 @@ from petsc4py import PETSc
 import numpy as np
 import re
 
-DUMP_FILE = "mat_10.txt"   # mude o nome aqui se quiser outro sistema
+DUMP_FILE = "mat_10.txt"   
 
 rows = []
 cols = []
