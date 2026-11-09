@@ -7,9 +7,10 @@ Este repositório contém o código-fonte desenvolvido para a qualificação de 
 **Coorientador:** Prof. Dr. Michael Ferreira de Souza
 
 ## 📌 Sobre o Projeto
-O trabalho investiga a seleção adaptativa e local do nível de preenchimento (\(k\)) em pré-condicionadores ILU(\(k\)) para o método GMRES. O objetivo é usar Redes Neurais em Grafos (GNNs) para prever o melhor \(k\) para cada subdomínio em ambientes de computação paralela com decomposição de domínios (Block-Jacobi), minimizando o tempo de solução de sistemas lineares de grande porte oriundos de simulações de reservatórios de petróleo (CMG IMEX).
+O trabalho investiga a seleção adaptativa e local do nível de preenchimento \(k\) em pré-condicionadores ILU(\(k\)) para o método GMRES. O objetivo é usar Redes Neurais em Grafos (GNNs) para prever o melhor \(k\) para cada subdomínio em ambientes de computação paralela com decomposição de domínios (Block-Jacobi), minimizando o tempo de solução de sistemas lineares de grande porte oriundos de simulações de reservatórios de petróleo (CMG IMEX).
 
 O projeto foi dividido em duas fases:
+
 *   **Fase 1 (mxspe001):** Prova de conceito com matrizes de pequeno porte (\(n \approx 300\)). Utilização de um modelo GraphSAGE.
 *   **Fase 2 (SPE10):** Expansão para matrizes industriais (\(n = 1.094.422\)). Extração de 16 atributos de nós e 4 de arestas, clusterização espacial, geração de rótulos suaves via modelo *Teacher* e treinamento de modelos preditivos (Random Forest, MLP, GraphSAGE e GINE).
 
