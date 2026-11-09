@@ -1,0 +1,13 @@
+venv/
+__pycache__/
+*.petscbin
+*.bin
+*.txt
+matrices/
+rhs/
+figuras_spe10/
+figuras_resultados/
+*.csv
+*.pt
+*.pdf
+.DS_Store
